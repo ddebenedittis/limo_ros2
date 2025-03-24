@@ -9,28 +9,34 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Builder dependencies installation
 RUN apt-get update \
     && apt-get install -qq -y --no-install-recommends \
+    apt-transport-https \
     build-essential \
+    ca-certificates \
     cmake \
+    curl \
     git \
+    libgl1-mesa-dev \
+    libglfw3-dev \
+    libglu1-mesa-dev \    
+    libgtk-3-dev \
     libssl-dev \
+    libusb-1.0-0 \
     libusb-1.0-0-dev \
     pkg-config \
-    libgtk-3-dev \
-    libglfw3-dev \
-    libgl1-mesa-dev \
-    libglu1-mesa-dev \    
-    curl \	
-    libusb-1.0-0 \
-    udev \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    swig \
-    software-properties-common \
     python3-pip \
+    ros-$ROS_DISTRO-gazebo-ros-pkgs \
+    ros-$ROS_DISTRO-joint-state-publisher-gui \
+    ros-$ROS_DISTRO-rviz2 \
+    ros-$ROS_DISTRO-turtlesim \
+    ros-$ROS_DISTRO-xacro \
+    software-properties-common \
+    swig \
+    udev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://ghproxy.com/https://github.com/YDLIDAR/YDLidar-SDK.git &&\
+# For Chinese mainland user use something like https://ghproxy.com.
+# RUN git clone https://ghproxy.com/https://github.com/YDLIDAR/YDLidar-SDK.git &&\
+RUN git clone https://github.com/YDLIDAR/YDLidar-SDK.git &&\
     mkdir -p YDLidar-SDK/build && \
     cd YDLidar-SDK/build &&\
     cmake ..&&\
