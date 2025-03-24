@@ -1,4 +1,4 @@
-FROM ros:foxy as dev
+FROM ros:humble as dev
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -40,7 +40,9 @@ RUN git clone https://ghproxy.com/https://github.com/YDLIDAR/YDLidar-SDK.git &&\
     pip install . &&\
     cd .. && rm -r YDLidar-SDK 
 
-RUN echo "source /opt/ros/foxy/setup.bash" >> /etc/bash.bashrc
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /etc/bash.bashrc
+RUN echo "source install/setup.bash" >> /etc/bash.bashrc
+RUN echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> /etc/bash.bashrc
 
 
 # ** [可选] 取消注释安装其他组件 **
